@@ -8,7 +8,8 @@ angular.module('borrow', ['ngRoute',
   'borrow.landing',
   'borrow.dashboard',
   'borrow.users',
-  'borrow.profile'
+  'borrow.profile',
+  'ezfb'
 ])
 
 .config(function($routeProvider, filepickerProvider, $httpProvider) {
@@ -73,7 +74,11 @@ angular.module('borrow', ['ngRoute',
   };
   return attach;
 })
-.run(function ($rootScope, $location, Auth) {
+.run(function ($rootScope, $location, Auth, ezfb) {
+    ezfb.init({
+    // This is my FB app id for plunker demo app
+    appId: '959752724140961'
+  }); 
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
     if (next.$$route && next.$$route.authenticate && !Auth.isAuth()) {
       $location.path('/login');
